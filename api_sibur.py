@@ -2,8 +2,9 @@ import time
 import datetime
 import requests
 import pandas as pd
+from configuration.config import vk_token
 
-access_token = 'vk1.a.eRqkkns9DgpaQbuXIyae3uaSIL68tFQnlbZbJtTNqIHQSMmGVzCCYxbU7U8g33VmATC_48u_AXaPq3dGJZSaBPficXSAo5lnYYg5eQPeFrz1yvoPF01w_Fw2gQv_MNZYyWgAmunCrHCv1Dxlgix5HGVNJPbIhMw5x_CPN-M24g5kPmejvSnywBMocG3yBHyd5NNMjsx7JnjKwAT8TKEKdw'
+access_token = vk_token
 owner_id = '-75708246'
 oowner_id = '75708246'
 
