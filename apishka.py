@@ -1,35 +1,16 @@
 from typing import Union
+from fastapi import APIRouter
+from models import Comments
 
-from fastapi import FastAPI
+router = APIRouter()
 
-import psycopg2
-
-app = FastAPI()
-
-app.get("/")
-
-
-def read_root():
-    return {"Hello": "World"}
-
-
-# @app.get("/fuck/{item_id}")
-# def read_item(item_id: int, q: Union[str, None] = None):
-#    return {"item_id": item_id, "q": q}
-
-@app.get("/search/{item_id}")
-def read_users(item_id: str, q: Union[str, None] = None):
-    try:
-        conn = psycopg2.connect(dbname='people', user='postgres', password='1234', host='host')
-    except:
-        print('Can`t establish connection to database')
-
-    cursor = conn.cursor()
-
-    # Получаем список всех пользователей
-    cursor.execute('SELECT search_vector FROM all_info WHERE search_vector @@ to_tsquery("russian", item_id);')
-    users = cursor.fetchall()
-    cursor.close()  # закрываем курсор
-    conn.close()  # закрываем соединение
-
-    return users
+@router.get("/get_comments/")
+def get_comments(user_text: str):
+    comments = Comments.select().where(Comments.text == user_text)
+    data = [] 
+    for comment in comments:
+        dict = {"comment_id": comment.comment_id, "person_id": comment.person_id, "date": comment.date, "text": comment.text, "parents_stack": comment.parents_stack, "post_id": comment.post_id, "likes": comment.likes}
+        data.append(dict)
+    if len(comments) == 0:
+        return {"message": "Not found"}
+    return {"message": "Found", "comments": data}
