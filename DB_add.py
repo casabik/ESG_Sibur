@@ -1,6 +1,6 @@
 from models import *
 from peewee import *
-from api_sibur import person, comments
+from comments_loading import person, comments
 
  
 with connection:
