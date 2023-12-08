@@ -40,7 +40,7 @@ def get_all_liked_lists(access_token, owner_id, liked_object_id, count=1000, off
                             {'access_token': access_token, 'type': 'post', 'owner_id': owner_id, 'item_id': i,
                              'filter': 'likes', 'friends_only': friends_only, 'count': count, 'v': '5.131'})
         List_of_users.append(api_query['response']['items'])
-        print(api_query['response']['items'])
+
     return List_of_users
 def get_all_ids(access_token, owner_id):
     offset = 0
@@ -113,7 +113,7 @@ all_posts = get_all_posts(access_token, owner_id)
 post_id_list = []
 for i in all_posts:
     post_id_list.append(i['id'])
-print(post_id_list)
+
 list_of_liked = get_all_liked_lists(access_token, owner_id, post_id_list)
 
 all_ids = get_all_ids(access_token, oowner_id)
@@ -121,11 +121,10 @@ all_ids = get_all_ids(access_token, oowner_id)
 user_likes = user_and_likes(all_ids, list_of_liked)
 
 comments = get_all_comments(access_token, owner_id, all_posts)
-#Массив словарей комментариев
-print(comments)
 
 user_comments = user_and_comments(comments, all_ids)
 
 person = []
 for i in range(len(all_ids)):
     person.append({'person_id': all_ids[i], 'likes_count': user_likes[all_ids[i]], 'comments_count': user_comments[all_ids[i]]})
+

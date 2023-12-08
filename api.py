@@ -5,7 +5,7 @@ from peewee import fn
 
 router = APIRouter()
 
-@router.get("/get_comments/")
+@router.get("/get_comments")
 def get_comments(user_text: str):
     comments = Comments.select().where(fn.Match(Comments.text, fn.tsquery(user_text)))
                                        

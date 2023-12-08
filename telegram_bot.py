@@ -12,7 +12,7 @@ def start_message(message):
 @bot.message_handler(content_types=['text'])
 def get_text_messages(message):
     query = message.text  
-    answer = get("http://127.0.0.1:8000/get_comments/", params = {'user_text': query})
+    answer = get("http://127.0.0.1:8000/get_comments", params = {'user_text': query})
     answer = answer.json()
     if answer['message'] == "Not found":
         bot.send_message(message.chat.id, "К сожалению таких комментариев нет(")
